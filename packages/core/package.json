@@ -1,0 +1,22 @@
+{
+  "name": "@jkfe-cli/core",
+  "version": "1.0.0",
+  "description": "jkfe-cli core",
+  "author": "Xu Chunyang <chunyang.xu@clobotics.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/core.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "node ./__tests__/core.test.js"
+  },
+  "dependencies": {
+    "@jkfe-cli/utils": "^1.0.0"
+  }
+}
