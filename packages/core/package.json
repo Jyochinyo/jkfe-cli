@@ -1,6 +1,6 @@
 {
   "name": "@jkfe-cli/core",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "jkfe-cli core",
   "author": "Xu Chunyang <chunyang.xu@clobotics.com>",
   "homepage": "",
@@ -17,6 +17,6 @@
     "test": "node ./__tests__/core.test.js"
   },
   "dependencies": {
-    "@jkfe-cli/utils": "^1.0.0"
+    "@jkfe-cli/utils": "^0.0.1"
   }
 }
