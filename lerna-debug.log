@@ -1,5 +1,5 @@
 17 error Error: Command failed with exit code 1: git remote update
-17 error fatal: unable to access 'https://github.com/Jyochinyo/jkfe-cli.git/': HTTP/2 stream 1 was not closed cleanly before end of the underlying stream
+17 error fatal: unable to access 'https://github.com/Jyochinyo/jkfe-cli.git/': Recv failure: Operation timed out
 17 error     at makeError (/Users/jyo/.nvm/versions/node/v16.13.0/lib/node_modules/lerna/node_modules/execa/lib/error.js:59:11)
 17 error     at Function.module.exports.sync (/Users/jyo/.nvm/versions/node/v16.13.0/lib/node_modules/lerna/node_modules/execa/index.js:186:17)
 17 error     at Object.execSync (/Users/jyo/.nvm/versions/node/v16.13.0/lib/node_modules/lerna/node_modules/@lerna/child-process/index.js:39:16)
