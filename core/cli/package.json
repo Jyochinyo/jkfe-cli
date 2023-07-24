@@ -20,7 +20,9 @@
     "test": "node ./__tests__/core.test.js"
   },
   "dependencies": {
-    "@jkfe-cli/utils": "^1.0.1"
+    "@jkfe-cli/utils": "file:../../utils/utils",
+    "import-local": "^3.1.0",
+    "npmlog": "^7.0.1"
   },
   "publishConfig": {
     "access": "public"
