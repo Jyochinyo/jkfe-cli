@@ -10,7 +10,10 @@
   "author": "",
   "license": "ISC",
   "workspaces": [
-    "packages/*"
+    "core/*",
+    "utils/*",
+    "commands/*",
+    "models/*"
   ],
   "devDependencies": {
     "lerna": "^7.0.2"
