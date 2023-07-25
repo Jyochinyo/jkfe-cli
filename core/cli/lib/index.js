@@ -2,6 +2,8 @@
 
 module.exports = core;
 
+let args;
+
 // 外部模块
 const colors = require('colors/safe')
 const log = require('@jkfe-cli/log')
@@ -17,9 +19,27 @@ function core() {
     checkNodeVersion()
     checkRoot()
     checkUserHome()
+    checkInputArgs()
+    log.verbose('cli', 'test verbose')
   } catch (error) {
     log.error(error.message)
   }
+}
+
+function checkInputArgs() {
+  const minimist = require('minimist')
+  args = minimist(process.argv.slice(2))
+  checkArgs(args)
+}
+
+function checkArgs(args) {
+  if (args.debug) {
+    process.env.LOG_LEVEL = 'verbose'
+  } else {
+    process.env.LOG_LEVEL = 'info'
+  }
+  // 更新 log.level
+  log.level = process.env.LOG_LEVEL
 }
 
 async function checkUserHome() {
