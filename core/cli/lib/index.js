@@ -2,28 +2,57 @@
 
 module.exports = core;
 
-let args;
+let args, config;
+let pathExists, rootCheck;
 
 // 外部模块
 const colors = require('colors/safe')
 const log = require('@jkfe-cli/log')
+const path = require('path')
 const sermver = require('semver')
 const userHome = require('user-home')
 // 内部模块
 const constant = require('./const');
 const pkg = require('../package.json')
 
-function core() {
+async function core() {
+  pathExists = await import('path-exists');
+  rootCheck = await import('root-check');
   try {
     checkPkgVersion()
     checkNodeVersion()
     checkRoot()
     checkUserHome()
     checkInputArgs()
-    log.verbose('cli', 'test verbose')
+    checkEnv()
   } catch (error) {
     log.error(error.message)
   }
+}
+
+function checkEnv () {
+  const dotenv = require('dotenv')
+  const dotenvPath = path.resolve(userHome, '.env')
+  if (pathExists?.pathExistsSync(dotenvPath)) {
+    dotenv.config({
+      path: dotenvPath
+    })
+  }
+  createDefaultConfig()
+  log.verbose('环境变量', process.env.CLI_HOME_PATH)
+}
+
+function createDefaultConfig() {
+  const cliConfig = {
+    home: userHome
+  }
+  if (process.env.CLI_HOME) {
+    cliConfig['cliHome'] = path.join(userHome, process.env.CLI_HOME)
+  } else {
+    cliConfig['cliHome'] = path.join(userHome, constant.DEFAULT_CLI_HOME)
+  }
+  process.env.CLI_HOME_PATH = cliConfig.cliHome
+  // return cliConfig
 }
 
 function checkInputArgs() {
@@ -43,21 +72,17 @@ function checkArgs(args) {
 }
 
 async function checkUserHome() {
-  // path-exists 版本过高 不支持require
-  const pathExists = await import('path-exists')
   const exist = pathExists?.pathExistsSync(userHome)
   if (!userHome || !exist) {
-    throw new Error(colors.red('当前登录用户主目录不存在！'))
+    log.error(colors.red('当前登录用户主目录不存在！'))
   }
 }
 
 // 检查 root 账户
 async function checkRoot() {
-  // root-check 版本过高 不支持require
-  const rootCheck = await import('root-check')
   rootCheck?.default()
   // 打印当前用户
-  // log.info('cli', process.geteuid())
+  // log.info('用户等级', process.geteuid())
 }
 
 // 检查node版本
