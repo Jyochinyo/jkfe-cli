@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@jkfe-cli/log": "file:../../utils/log",
-    "@jkfe-cli/utils": "file:../../utils/utils",
+    "@jkfe-cli/get-npm-info": "file:../../utils/get-npm-info",
     "colors": "^1.4.0",
     "dotenv": "^16.3.1",
     "import-local": "^3.1.0",

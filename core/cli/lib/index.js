@@ -25,9 +25,21 @@ async function core() {
     checkUserHome()
     checkInputArgs()
     checkEnv()
+    checkGlobalUpdate()
   } catch (error) {
     log.error(error.message)
   }
+}
+
+function checkGlobalUpdate() {
+  // 1. 获取当前版本号和模块名
+  const currentVersion = pkg.version
+  const npmName = pkg.name
+  // 2. 调用 npm API，获取所有版本号
+  const { getNpmInfo } = require('@jkfe-cli/get-npm-info')
+  getNpmInfo(npmName)
+  // 3. 提取所有版本号，比对哪些版本号是大于当前版本号
+  // 4. 获取最新的版本号，提示用户更新到该版本
 }
 
 function checkEnv () {
