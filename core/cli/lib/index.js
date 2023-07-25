@@ -1,34 +1,43 @@
 'use strict';
 
-// improt rootCheck from 'root-check';
-
 module.exports = core;
 
-const sermver = require('semver')
+// 外部模块
 const colors = require('colors/safe')
-const pkg = require('../package.json')
 const log = require('@jkfe-cli/log')
+const sermver = require('semver')
+const userHome = require('user-home')
+// 内部模块
 const constant = require('./const');
+const pkg = require('../package.json')
 
 function core() {
   try {
     checkPkgVersion()
     checkNodeVersion()
     checkRoot()
+    checkUserHome()
   } catch (error) {
     log.error(error.message)
   }
 }
 
+async function checkUserHome() {
+  // path-exists 版本过高 不支持require
+  const pathExists = await import('path-exists')
+  const exist = pathExists?.pathExistsSync(userHome)
+  if (!userHome || !exist) {
+    throw new Error(colors.red('当前登录用户主目录不存在！'))
+  }
+}
+
 // 检查 root 账户
-function checkRoot() {
+async function checkRoot() {
   // root-check 版本过高 不支持require
-  const rc = import('root-check')
-  rc.then((rootCheck) => {
-    rootCheck?.default()
-    // 打印账号信息
-    console.log('当前用户信息', process.geteuid())
-  })
+  const rootCheck = await import('root-check')
+  rootCheck?.default()
+  // 打印当前用户
+  // log.info('cli', process.geteuid())
 }
 
 // 检查node版本
